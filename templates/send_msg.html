@@ -1,0 +1,17 @@
+{% extends 'admin/base_site.html' %}
+
+ {% block content %}
+ <form action="{% url 'bot:send' %}" method="post">
+    {% csrf_token %}
+    {% comment %} {% for item in objects %} {% endcomment %}
+    <input type='hidden'  name="tgUsers" value="{{ objects }}"/> {# thanks to @David Hopkins for highligting it #}
+    {% comment %} {% endfor %} {% endcomment %}
+
+    {% comment %} {{ form }} {% endcomment %}
+    <label for="id_text">Text:</label>
+    <textarea name="text" cols="40" rows="10" required="" id="id_text"></textarea>
+    <p>send for:</p>
+    <ul>{{ objects|unordered_list }}</ul>
+    <input type="submit" name="apply" value="Apply" />
+ </form>
+ {% endblock %}

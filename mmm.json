@@ -1,0 +1,39 @@
+{
+  "update_id": 551823391,
+  "my_chat_member": {
+    "chat": {
+      "id": 920393608,
+      "first_name": "Ali",
+      "username": "just_akbarov",
+      "type": "private"
+    },
+    "from": {
+      "id": 920393608,
+      "is_bot": False,
+      "first_name": "Ali",
+      "username": "just_akbarov",
+      "language_code": "en",
+      "is_premium": True
+    },
+    "date": 1675326404,
+    "old_chat_member": {
+      "user": {
+        "id": 987901929,
+        "is_bot": True,
+        "first_name": "Ramazon taqvim",
+        "username": "testtaqvimbot"
+      },
+      "status": "kicked",
+      "until_date": 0
+    },
+    "new_chat_member": {
+      "user": {
+        "id": 987901929,
+        "is_bot": True,
+        "first_name": "Ramazon taqvim",
+        "username": "testtaqvimbot"
+      },
+      "status": "member"
+    }
+  }
+}

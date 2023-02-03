@@ -1,0 +1,21 @@
+{% extends 'admin/base_site.html' %}
+
+ {% block content %}
+    {{ user }}
+    {%for i in result_list %}
+    <sub style="color: grey">{% if i.send_type %}{% if i.send_type == 0 %}private{% else %}broad{% endif%}{% endif %}</sub>
+    {% if i.is_recive == False %}<sub style="color: red">not sended</sub>{% endif %}
+    <sub style="color: pink">{% if i.m_status == 0 %}new{% endif %}</sub>
+    <p style="color: {% if i.is_admin %}white;{% else %}green; {% endif %}" class="">{% if i.msg_type == 1%}<a href={{i.image.url}}>{{i.image}}</a>{% endif %}<b>{{ i.text }}</b></p>
+    
+    {% endfor%}
+    <form action={% url 'bot:chat' chat_id %} method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    
+        <input type="file" name="file"/><br>
+        <input type="text" name="text" id="id_text"></textarea>
+        <button>send</button>
+        {% comment %} <input type="submit" name="apply" value="Send" /> {% endcomment %}
+    </form>
+ {% endblock %}
+ 
