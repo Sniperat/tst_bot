@@ -41,11 +41,9 @@ class TgUserModel(models.Model):
 
 
 TEXT = 0
-IMAGE = 1
 FILE = 2
 MSG_TYPE = (
     (TEXT, 'Text'),
-    (IMAGE, 'Image'),
     (FILE, 'File')
 )
 

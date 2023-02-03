@@ -1,12 +1,22 @@
 {% extends 'admin/base_site.html' %}
 
  {% block content %}
-    {{ user }}
+ <div style='display: flex'>
+   
+<div class="col-5">
     {%for i in result_list %}
-    <sub style="color: grey">{% if i.send_type %}{% if i.send_type == 0 %}private{% else %}broad{% endif%}{% endif %}</sub>
-    {% if i.is_recive == False %}<sub style="color: red">not sended</sub>{% endif %}
-    <sub style="color: pink">{% if i.m_status == 0 %}new{% endif %}</sub>
-    <p style="color: {% if i.is_admin %}white;{% else %}green; {% endif %}" class="">{% if i.msg_type == 1%}<a href={{i.image.url}}>{{i.image}}</a>{% endif %}<b>{{ i.text }}</b></p>
+        <div style="color: grey; text-align: right;">{% if i.send_type %}{% if i.send_type == 0 %}private{% else %}broad{% endif%}{% endif %}</div>
+        {% if i.is_recive == False %}<div style="color: red; text-align: right;">not sended</div   >{% endif %}
+        <sub style="color: pink">{% if i.m_status == 0 %}new{% endif %}</sub>
+        <p 
+            style="color: {% if i.is_admin %}white; text-align: right; margin-top:0; margin-left:50%; background-color: green; {% else %}white; background-color: green; margin-right:50%;{% endif %}" 
+            class="">
+            {% if i.msg_type == 2 %}
+            <a href={{i.file.url}}>{{i.file}}</a>
+            {% else %}
+            <b>{{ i.text }}</b>
+            {% endif %}
+        </p>
     
     {% endfor%}
     <form action={% url 'bot:chat' chat_id %} method="post" enctype="multipart/form-data">
@@ -14,8 +24,30 @@
     
         <input type="file" name="file"/><br>
         <input type="text" name="text" id="id_text"></textarea>
-        <button>send</button>
-        {% comment %} <input type="submit" name="apply" value="Send" /> {% endcomment %}
+       
+        <input type="submit" name="apply" value="Send" />
     </form>
+</div>
+<div class="col-5" style="margin-left:100px">
+    <p>chat_id: {{ user.chat_id }}</p>
+    {% if user.username %}<p>username: {{ user.username }}</p>{% endif %}
+    {% if user.first_name %}<p>first_name: {{ user.first_name }}</p>{% endif %}
+    {% if user.last_name %}<p>last_name: {{ user.last_name }}</p>{% endif %}
+    {% if user.phone_number %}<p>phone_number: {{ user.phone_number }}</p>{% endif %}
+    {% if user.email %}<p>email: {{ user.email }}</p>{% endif %}
+    {% if user.full_name %}<p>full_name: {{ user.full_name }}</p>{% endif %}
+    {% if user.address %}<p>address: {{ user.address }}</p>{% endif %}
+    {% if user.is_active %}<p>is_active: {{ user.is_active }}</p>{% endif %}
+    
+</div>
+</div>
+    <style>
+        .col-5 {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 41.666667%;
+            flex: 0 0 41.666667%;
+            max-width: 41.666667%;
+          }
+    </style>
  {% endblock %}
  
