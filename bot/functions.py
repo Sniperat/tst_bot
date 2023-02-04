@@ -1,19 +1,19 @@
 from .models import *
-from .vlidators import *
+from .validators import *
 from django.conf import settings
 from telebot import types
 from django.core.files import File
 import telebot
-
-
+print(settings.BOT_TOKEN)
 bot = telebot.TeleBot(settings.BOT_TOKEN, parse_mode=None)
+
 
 def acceptMessage(user: TgUserModel, data):
     if saveMessage(user, data):
         msg = data['message']['text']
         if msg == '/start':
             text_me = 'Iltmos To\'liq ismingizni kiriting!'
-        elif user.steps ==  FULL_NAME:
+        elif user.steps == FULL_NAME:
             user.full_name = msg
             user.steps = PHONE
             user.save()
@@ -31,7 +31,8 @@ def acceptMessage(user: TgUserModel, data):
 
                 bot.send_message(chat_id=user.chat_id, text=text_me, reply_markup=catalogKBoard)
                 return False
-            else:text_me = 'Raqam noto\'g\'ri kiritildi'
+            else:
+                text_me = 'Raqam noto\'g\'ri kiritildi'
         elif user.steps == EMAIL:
             if msg == 'skip':
                 user.steps = ADDRESS
@@ -44,7 +45,8 @@ def acceptMessage(user: TgUserModel, data):
                     user.steps = ADDRESS
                     user.save()
                     text_me = 'Iltmos To\'liq manzilingizni kiriting!'
-                else:text_me = 'email noto\'g\'ri kiritildi!'
+                else:
+                    text_me = 'email noto\'g\'ri kiritildi!'
         elif user.steps == ADDRESS:
             user.address = msg
             user.steps = READY_TO_CHAT
@@ -52,20 +54,17 @@ def acceptMessage(user: TgUserModel, data):
             text_me = 'Ma`lumotlaringizni biz bilan ulashganingiz uchun rahmat\n \
                 Bemalol murojatlaringizni yuboravering, ma`lum muddatdan kein sizga \
                 habar qaytarishadi'
-                
-                    
+
         elif user.steps == READY_TO_CHAT:
 
             # bot.send_message(chat_id=user.chat_id, text='asdasd')
             return False
-        
+
         return {
-                'chat_id':user.chat_id,
-                'text': text_me
-            }
+            'chat_id': user.chat_id,
+            'text': text_me
+        }
     return False
-
-
 
 
 def saveMessage(user: TgUserModel, data):
@@ -136,4 +135,3 @@ def get_user(data):
         )
         user.save()
     return user
-

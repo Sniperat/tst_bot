@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 
-
 FULL_NAME = 0
 PHONE = 1
 EMAIL = 2
@@ -32,7 +31,7 @@ class TgUserModel(models.Model):
 
     def __str__(self) -> str:
         return f'{self.username}'
-    
+
     def go_chat(self):
         return mark_safe(f'<a href="/chat/{self.chat_id}" height="150">go chat<a/>')
 
@@ -73,6 +72,8 @@ SEND_STATUS = (
     (PRIVATE, 'Private'),
     (BROAD, 'Broad')
 )
+
+
 class ServerMessageModel(models.Model):
     msg_type = models.SmallIntegerField(choices=MSG_TYPE, default=TEXT)
     text = models.TextField()
@@ -86,8 +87,6 @@ class ServerMessageModel(models.Model):
 
     def __str__(self) -> str:
         return str(self.id)
-
-
 
 # aaa = MessageModel.objects.raw('Select bot_messagemodel.text as text, bot_ from bot_tgusermodel')
 # for i in aaa:
