@@ -18,7 +18,6 @@ def event(request):
 
     user = get_user(json_list)
     data = acceptMessage(user, json_list)
-    print(data)
     if data:
         bot.send_message(chat_id=data['chat_id'], text=data['text'])
         # bot.send_message(chat_id=5828707322, text='dfbdfg')
@@ -49,6 +48,7 @@ class SendView(View):
         return redirect('/admin')
 
 
+# TODO chatdan habar jo'natish
 class ChatView(View):
 
     def get(self, request, id):
@@ -68,8 +68,9 @@ class ChatView(View):
             myfile = request.FILES['file']
             fs = FileSystemStorage()
             filename = fs.save(myfile.name, myfile)
-        except:
+        except Exception as e:
             myfile = ""
+
         server_msg = ServerMessageModel(tg_user=usr, send_type=PRIVATE, m_status=READ)
         
         try:

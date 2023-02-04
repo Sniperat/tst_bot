@@ -4,7 +4,6 @@ from django.conf import settings
 from telebot import types
 from django.core.files import File
 import telebot
-print(settings.BOT_TOKEN)
 bot = telebot.TeleBot(settings.BOT_TOKEN, parse_mode=None)
 
 
@@ -84,11 +83,8 @@ def saveMessage(user: TgUserModel, data):
         new_file.close()
         existing_file.close()
 
-        print('tugadi')
         return False
     elif 'photo' in data['message']:
-        print(data)
-        print('boshlandi')
 
         file_info = bot.get_file(data['message']['photo'][-1]['file_id'])
         downloaded_file = bot.download_file(file_info.file_path)
@@ -103,7 +99,6 @@ def saveMessage(user: TgUserModel, data):
         )
         new_file.close()
         existing_file.close()
-        print('tugadi')
         return False
     elif 'text' in data['message']:
         MessageModel.objects.create(

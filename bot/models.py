@@ -88,6 +88,3 @@ class ServerMessageModel(models.Model):
     def __str__(self) -> str:
         return str(self.id)
 
-# aaa = MessageModel.objects.raw('Select bot_messagemodel.text as text, bot_ from bot_tgusermodel')
-# for i in aaa:
-#     print(i.chat_id)
